@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Vaerksted.ViewModels"
+             x:DataType="vm:FakturaViewModel"
+             x:Class="Vaerksted.Pages.FakturaPage"
+             Title="Faktura">
+
+    <VerticalStackLayout Padding="20">
+        <Label 
+            Text="Faktura"
+            FontSize="24"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Entry 
+            Placeholder="Mekaniker's Navn" 
+            Text="{Binding MekanikerNavn}"/>
+
+        <Entry 
+            Placeholder="Timer brugt" 
+            Keyboard="Numeric"
+            Text="{Binding Timer, StringFormat='{0:N2}'}"/>
+
+        <Entry 
+            Placeholder="Timepris" 
+            Keyboard="Numeric"
+            Text="{Binding Timepris, StringFormat='{0:N2}'}"/>
+
+        <Label Text="Materialer" FontSize="18" FontAttributes="Bold"/>
+
+        <CollectionView ItemsSource="{Binding Materialer}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label 
+                            Grid.Column="0"
+                            Text="{Binding Navn}" 
+                            FontSize="14"/>
+                        <Label 
+                            Grid.Column="1"
+                            Text="{Binding TotalPris, StringFormat='Total: {0:C}'}"
+                            HorizontalOptions="End"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label 
+            Text="{Binding TotalPris, StringFormat='Total Faktura: {0:C}'}" 
+            FontSize="18" 
+            FontAttributes="Bold"
+            HorizontalOptions="Center"/>
+
+        <Button 
+            Text="Gem Faktura" 
+            Command="{Binding SaveFakturaCommand}"
+            Margin="0,10"/>
+
+        <Button 
+            Text="Tilbage" 
+            Clicked="GoBack"
+            Style="{StaticResource OutlineButton}"/>
+    </VerticalStackLayout>
+</ContentPage>
