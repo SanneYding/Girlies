@@ -2,8 +2,10 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Vaerksted.Models;
 using Vaerksted.Services;
+//using static Android.Graphics.ImageDecoder;
 
 namespace Vaerksted.ViewModels
 {
@@ -47,6 +49,21 @@ namespace Vaerksted.ViewModels
         {
             _database = database;
             InitializeOpgave();
+        }
+
+        public OpgaveViewModel()
+        {
+        }
+
+
+
+        public ICommand AddOpgaveAsync => new Command<Opgave>(async (Opgave opgave) => _AddOpgaveAsync(opgave));
+
+
+        private void _AddOpgaveAsync(Opgave opgave)
+        {
+            var a = 1;
+            a++;
         }
 
         private async void InitializeOpgave()
