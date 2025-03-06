@@ -3,7 +3,7 @@ using System;
 
 namespace Vaerksted.ViewModels
 {
-    public partial class MaterialerViewModel : ObservableObject
+    public partial class KalenderViewModel : ObservableObject
     {
         [ObservableProperty]
         private int id;
@@ -26,7 +26,7 @@ namespace Vaerksted.ViewModels
 
 
 
-        public MaterialerViewModel()
+        public KalenderViewModel()
         {
         }
     }

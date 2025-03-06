@@ -14,9 +14,9 @@
         Route="OpgaveView" />
 
     <ShellContent
-        Title="Oversigt over opgaver for en valgt dato"
-        ContentTemplate="{DataTemplate local:MaterialerView}"
-        Route="MaterialerView" />
+        Title="Oversigt over opgaver"
+        ContentTemplate="{DataTemplate local:KalenderView}"
+        Route="KalenderView" />
 
     <ShellContent
         Title="Specifikation af udført arbejde"

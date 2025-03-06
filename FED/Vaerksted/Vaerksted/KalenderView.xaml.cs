@@ -3,14 +3,14 @@ using Vaerksted.ViewModels;
 
 namespace Vaerksted
 {
-    public partial class MaterialerView : ContentPage
+    public partial class KalenderView : ContentPage
     {
 
-        public MaterialerView()
+        public KalenderView()
         {
             var db = Database.Instance;
             InitializeComponent();
-            BindingContext = new MaterialerViewModel();//db
+            BindingContext = new KalenderViewModel();//db
         }
 
      

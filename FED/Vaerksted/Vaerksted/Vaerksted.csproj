@@ -69,8 +69,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="MaterialerView.xaml.cs">
-	    <DependentUpon>MaterialerView.xaml</DependentUpon>
+	  <Compile Update="KalenderView.xaml.cs">
+	    <DependentUpon>KalenderView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="FakturaView.xaml.cs">
 	    <DependentUpon>FakturaView.xaml</DependentUpon>
@@ -81,7 +81,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="MaterialerView.xaml">
+	  <MauiXaml Update="KalenderView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="FakturaView.xaml">

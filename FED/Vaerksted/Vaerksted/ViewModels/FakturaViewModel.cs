@@ -26,9 +26,9 @@ namespace Vaerksted.ViewModels
         [ObservableProperty]
         private float _timepris;
 
-        public ObservableCollection<MaterialerViewModel> Materialer { get; } = [];
+        //public ObservableCollection<MaterialerViewModel> Materialer { get; } = [];
 
-        public float TotalPris => (float)(Timer * Timepris + Materialer.Sum(m => m.TotalPris));
+        //public float TotalPris => (float)(Timer * Timepris + Materialer.Sum(m => m.TotalPris));
 
         public FakturaViewModel(Database database)
         {
@@ -38,7 +38,7 @@ namespace Vaerksted.ViewModels
         [RelayCommand]
         private async Task SaveFakturaAsync()
         {
-            var faktura = new Faktura
+            /*var faktura = new Faktura
             {
                 // Use _id instead of ID
                 ID = _id,
@@ -61,7 +61,7 @@ namespace Vaerksted.ViewModels
             else
             {
                 await _database.UpdateFaktura(faktura);
-            }
+            }*/
         }
     }
 }
