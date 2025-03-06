@@ -8,7 +8,7 @@ namespace Vaerksted.Models
     public class Opgave
     {
         [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+        public Guid ID { get; set; }
 
         public string? CustomerName { get; set; } = string.Empty;
         public string? CustomerAddress { get; set; } = string.Empty;

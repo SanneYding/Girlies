@@ -3,14 +3,14 @@ using Vaerksted.ViewModels;
 
 namespace Vaerksted
 {
-    public partial class MainPage : ContentPage
+    public partial class FakturaView : ContentPage
     {
 
-        public MainPage()
+        public FakturaView()
         {
             var db = Database.Instance;
             InitializeComponent();
-            BindingContext = new OpgaveViewModel(db);
+            BindingContext = new FakturaViewModel(db);
         }
 
      

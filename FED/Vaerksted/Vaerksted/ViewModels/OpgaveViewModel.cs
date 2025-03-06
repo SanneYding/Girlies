@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using System.Windows.Input;
 using Vaerksted.Models;
 using Vaerksted.Services;
 //using static Android.Graphics.ImageDecoder;
+
 
 namespace Vaerksted.ViewModels
 {
@@ -16,6 +18,12 @@ namespace Vaerksted.ViewModels
 
         [ObservableProperty]
         private int _id;
+
+        
+        
+        [ObservableProperty]
+        private string _name = "hans";
+
 
         [ObservableProperty]
         private string _customerName = empty;
@@ -38,12 +46,14 @@ namespace Vaerksted.ViewModels
         [ObservableProperty]
         private string _work = empty;
 
+
+
         public ObservableCollection<FakturaViewModel> Fakturaer { get; } = [];
 
         // Alias Properties for Binding
-        public string KundeNavn => CustomerName;
-        public string BilModel => CarModel;
-        public DateTime Dato => Date;
+        //public string KundeNavn => CustomerName;
+        //public string BilModel => CarModel;
+        //public DateTime Dato => Date;
 
         public OpgaveViewModel(Database database)
         {
@@ -51,19 +61,35 @@ namespace Vaerksted.ViewModels
             InitializeOpgave();
         }
 
-        public OpgaveViewModel()
+
+        //public ICommand AddOpgaveAsync => new Command(async () => await AddOpgave());
+
+
+        [RelayCommand]
+        public async Task AddOpgave()
         {
-        }
+            var opgaver = await _database.GetOpgaveAsync();
+            var opgave = new Opgave
+            {
+                ID = Guid.NewGuid(),
+                CustomerName = _name,
+                CustomerAddress = _customerAddress,
+                CarMake = _carMake,
+                CarModel = _carModel,
+                CarLicense = _carLicense,
+                Date = DateTime.Now,
+                Work = _work
+            };
+            await _database.AddOpgaveAsync(opgave);
+            Name = String.Empty;
+            
+            //_name = string.Empty;
+            CustomerAddress = string.Empty;
+            CarMake = empty;
+            CarModel = empty;
+            CarLicense = empty;
+            Work = empty;
 
-
-
-        public ICommand AddOpgaveAsync => new Command<Opgave>(async (Opgave opgave) => _AddOpgaveAsync(opgave));
-
-
-        private void _AddOpgaveAsync(Opgave opgave)
-        {
-            var a = 1;
-            a++;
         }
 
         private async void InitializeOpgave()
@@ -73,7 +99,7 @@ namespace Vaerksted.ViewModels
             {
                 var testOpgave = new Opgave
                 {
-                    ID = 1,
+                    ID = Guid.NewGuid(),
                     CustomerName = "Test Kunde",
                     CustomerAddress = "Testvej 123",
                     CarMake = "Toyota",

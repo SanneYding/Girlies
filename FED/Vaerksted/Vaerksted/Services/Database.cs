@@ -11,7 +11,13 @@ namespace Vaerksted.Services
     {
         private readonly SQLiteAsyncConnection _connection;
 
-        public Database()
+
+        // lavet den om til en singleton så alle page/views kan få adgang til den samme database instance
+        private static Database _instance;
+
+        public static Database Instance => _instance ??= new Database();
+
+        private Database()
         {
             var dataDir = FileSystem.AppDataDirectory;
             var databasePath = Path.Combine(dataDir, "Vaerksted.db");
@@ -43,7 +49,7 @@ namespace Vaerksted.Services
         //OPGAVE
         public async Task<List<Opgave>> GetOpgaveAsync() => await _connection.Table<Opgave>().ToListAsync();
 
-        public async Task<Opgave> GetOpgaveAsync(int id)
+        public async Task<Opgave> GetOpgaveAsync(Guid id)
         {
             var query = _connection.Table<Opgave>().Where(t => t.ID == id);
             return await query.FirstOrDefaultAsync();

@@ -1,0 +1,24 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="vaerksted.MainPage">
+
+    <VerticalStackLayout Padding="20">
+
+        <Entry Placeholder="Name" Text="{Binding Name}" />
+        <Entry Placeholder="Email" Text="{Binding Email}" Keyboard="Email" />
+
+        <HorizontalStackLayout Spacing="10">
+            <Button Text="Submit" Command="{Binding SubmitCommand}" />
+            <Button Text="Clear" Command="{Binding ClearCommand}" BackgroundColor="LightGray"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
+            <Button Text="Form ViewModel" Clicked="SwitchToForm"/>
+            <Button Text="Settings ViewModel" Clicked="SwitchToSettings"/>
+        </HorizontalStackLayout>
+
+        <Label Text="{Binding Theme}" FontSize="20" />
+        <Button Text="Change Theme" Command="{Binding ChangeThemeCommand}"/>
+
+    </VerticalStackLayout>
+</ContentPage>

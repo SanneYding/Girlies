@@ -9,8 +9,18 @@
     Title="Vaerksted">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Book Ny Opgave"
+        ContentTemplate="{DataTemplate local:OpgaveView}"
+        Route="OpgaveView" />
+
+    <ShellContent
+        Title="Oversigt over opgaver for en valgt dato"
+        ContentTemplate="{DataTemplate local:MaterialerView}"
+        Route="MaterialerView" />
+
+    <ShellContent
+        Title="Specifikation af udført arbejde"
+        ContentTemplate="{DataTemplate local:FakturaView}"
+        Route="FakturaView" />
 
 </Shell>

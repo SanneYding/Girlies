@@ -3,10 +3,10 @@ using Vaerksted.ViewModels;
 
 namespace Vaerksted
 {
-    public partial class MainPage : ContentPage
+    public partial class OpgaveView : ContentPage
     {
 
-        public MainPage()
+        public OpgaveView()
         {
             var db = Database.Instance;
             InitializeComponent();
