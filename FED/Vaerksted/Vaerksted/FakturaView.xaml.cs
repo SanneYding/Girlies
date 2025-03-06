@@ -5,15 +5,11 @@ namespace Vaerksted
 {
     public partial class FakturaView : ContentPage
     {
-
         public FakturaView()
         {
             var db = Database.Instance;
             InitializeComponent();
-            BindingContext = new FakturaViewModel(db);
+            BindingContext = new FakturaViewModel();
         }
-
-     
     }
-
 }

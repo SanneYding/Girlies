@@ -5,15 +5,11 @@ namespace Vaerksted
 {
     public partial class KalenderView : ContentPage
     {
-
         public KalenderView()
         {
             var db = Database.Instance;
             InitializeComponent();
-            BindingContext = new KalenderViewModel();//db
+            BindingContext = new OpgaveViewModel(db);
         }
-
-     
     }
-
 }

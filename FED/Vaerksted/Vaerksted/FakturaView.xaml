@@ -10,17 +10,92 @@
     <!--
     x:DataType="vm:OpgaveViewModel"
 
-
     <ContentPage.BindingContext>
         <vm:OpgaveViewModel />
     </ContentPage.BindingContext>
     -->
     <ScrollView>
-        <VerticalStackLayout Padding="20">
-            <Label Text="Faktura" FontSize="24" HorizontalOptions="Center"/>
+        <VerticalStackLayout 
+            Padding="20">
+            <Label 
+                Text="Faktura" 
+                FontSize="24" 
+                HorizontalOptions="Center"
+                />
+            <Picker 
+                Title="Vælg opgave"
+                ItemsSource="{Binding OpgaveListe}"
+                SelectedItem="{Binding SelectedOpgave}"
+                ItemDisplayBinding="{Binding CustomerName, Converter={StaticResource OpgaveIdToStringConverter}}"
+            />
+<!--
+                ItemDisplayBinding="{Binding OpgaveListe.Item.CustomerName}" 
 
+-->
+                
+            <Entry
+                Text="{Binding Name}"
+                Placeholder = "Name"
+                WidthRequest="300"
+                HeightRequest="50"
+                BackgroundColor="White"
+                TextColor="Black"
+                Margin="0,10,0,0"
+                />
+            <Entry 
+                Placeholder = "Mekanikerens navn"
+                Text="{Binding MekanikerNavn}"
+                WidthRequest="300"
+                HeightRequest="50"
+                BackgroundColor="White"
+                TextColor="Black"
+                Margin="0,10,0,0"
+                />
+            <Entry 
+                Placeholder ="Timer"
+                Keyboard="Numeric"
+                Text = "{Binding Timer}"
+                WidthRequest="300"
+                HeightRequest="50"
+                BackgroundColor="White"
+                TextColor="Black"
+                Margin="0,10,0,0"
+                />
+            <Entry 
+                Placeholder="Timepris"
+                Keyboard="Numeric"
+                Text="{Binding Timepris}"
+                WidthRequest="300"
+                HeightRequest="50"
+                BackgroundColor="White"
+                TextColor="Black"
+                Margin="0,10,0,0"
+                />
 
+            <Button
+                Text = "Tilføj materiale"
+                Command = "{Binding AddMaterialerCommand}"
+                />
+
+            <CollectionView ItemsSource="{Binding Materialer}" HeightRequest="200">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding Navn}" FontAttributes="Bold" />
+                            <Label Text="{Binding Antal}" />
+                            <Label Text="{Binding Pris}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label
+                FontSize="18"
+                Text="{Binding TotalPris, StringFormat='Total pris: {0:C}'}" 
+                />
+            <Button
+                Text="Gem faktura" 
+                Command="{Binding SaveFakturaCommand}"
+                />
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

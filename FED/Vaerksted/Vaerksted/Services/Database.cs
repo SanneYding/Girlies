@@ -2,6 +2,7 @@
 using SQLiteNetExtensions.Extensions;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices.JavaScript;
 using System.Threading.Tasks;
 using Vaerksted.Models;
 
@@ -11,8 +12,7 @@ namespace Vaerksted.Services
     {
         private readonly SQLiteAsyncConnection _connection;
 
-
-        // lavet den om til en singleton så alle page/views kan få adgang til den samme database instance
+        // Lavet til en singleton så alle page/views kan få adgang til den samme database instance
         private static Database _instance;
 
         public static Database Instance => _instance ??= new Database();
@@ -20,7 +20,7 @@ namespace Vaerksted.Services
         private Database()
         {
             var dataDir = FileSystem.AppDataDirectory;
-            var databasePath = Path.Combine(dataDir, "Vaerksted.db");
+            var databasePath = Path.Combine(dataDir, "Vaerksted_3.db");
 
             string _dbEncryptionKey = SecureStorage.GetAsync("dbKey").Result;
 
@@ -42,17 +42,27 @@ namespace Vaerksted.Services
             await _connection.CreateTableAsync<Opgave>();
             await _connection.CreateTableAsync<Faktura>();
             await _connection.CreateTableAsync<Materialer>();
-
         }
 
 
         //OPGAVE
         public async Task<List<Opgave>> GetOpgaveAsync() => await _connection.Table<Opgave>().ToListAsync();
 
-        public async Task<Opgave> GetOpgaveAsync(Guid id)
+        public async Task<Opgave> GetOpgaveAsync(int id)
         {
             var query = _connection.Table<Opgave>().Where(t => t.ID == id);
             return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Opgave>> GetOpgaveByDateAsync(DateTime date)
+        {
+            var selected = date;
+            var tomorrow = date.AddDays(1);
+
+            return await _connection.Table<Opgave>()
+                .Where(t => t.Date > date && t.Date < tomorrow).ToListAsync();
+
+            //return await query.ToListAsync();
         }
 
         public async Task<int> AddOpgaveAsync(Opgave opgave)
@@ -94,8 +104,6 @@ namespace Vaerksted.Services
             return await _connection.UpdateAsync(faktura);
         }
 
-
-
         //MATERIALER
         public async Task<List<Materialer>> GetMaterialerAsync() => await _connection.Table<Materialer>().ToListAsync();
 
@@ -119,8 +127,5 @@ namespace Vaerksted.Services
         {
             return await _connection.UpdateAsync(materialer);
         }
-
-
-
     }
 }

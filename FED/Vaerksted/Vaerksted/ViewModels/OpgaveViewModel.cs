@@ -14,16 +14,14 @@ namespace Vaerksted.ViewModels
     public partial class OpgaveViewModel : ObservableObject
     {
         private static readonly string empty = string.Empty;
+        
         private readonly Database _database;
 
         [ObservableProperty]
         private int _id;
 
-        
-        
-        [ObservableProperty]
-        private string _name = "hans";
-
+        [ObservableProperty] 
+        private string _name = empty;
 
         [ObservableProperty]
         private string _customerName = empty;
@@ -47,10 +45,9 @@ namespace Vaerksted.ViewModels
         private string _work = empty;
 
 
-
         public ObservableCollection<FakturaViewModel> Fakturaer { get; } = [];
 
-        // Alias Properties for Binding
+        //Alias Properties for Binding
         //public string KundeNavn => CustomerName;
         //public string BilModel => CarModel;
         //public DateTime Dato => Date;
@@ -61,7 +58,6 @@ namespace Vaerksted.ViewModels
             InitializeOpgave();
         }
 
-
         //public ICommand AddOpgaveAsync => new Command(async () => await AddOpgave());
 
 
@@ -71,7 +67,6 @@ namespace Vaerksted.ViewModels
             var opgaver = await _database.GetOpgaveAsync();
             var opgave = new Opgave
             {
-                ID = Guid.NewGuid(),
                 CustomerName = _name,
                 CustomerAddress = _customerAddress,
                 CarMake = _carMake,
@@ -81,15 +76,13 @@ namespace Vaerksted.ViewModels
                 Work = _work
             };
             await _database.AddOpgaveAsync(opgave);
-            Name = String.Empty;
             
-            //_name = string.Empty;
+            Name = string.Empty; 
             CustomerAddress = string.Empty;
-            CarMake = empty;
-            CarModel = empty;
-            CarLicense = empty;
-            Work = empty;
-
+            CarMake = string.Empty;
+            CarModel = string.Empty;
+            CarLicense = string.Empty;
+            Work = string.Empty;
         }
 
         private async void InitializeOpgave()
@@ -99,7 +92,6 @@ namespace Vaerksted.ViewModels
             {
                 var testOpgave = new Opgave
                 {
-                    ID = Guid.NewGuid(),
                     CustomerName = "Test Kunde",
                     CustomerAddress = "Testvej 123",
                     CarMake = "Toyota",
@@ -108,8 +100,30 @@ namespace Vaerksted.ViewModels
                     Date = DateTime.Now,
                     Work = "Test reparation"
                 };
-
                 await _database.AddOpgaveAsync(testOpgave);
+            }
+        }
+
+        [ObservableProperty]
+        private DateTime _valgtDato = DateTime.Today; // Default to today’s date
+
+        [ObservableProperty]
+        private string _opgaveText = string.Empty;
+
+        [RelayCommand]
+        public async Task LoadOpgaveByDate()
+        {
+            var opgaver = await _database.GetOpgaveByDateAsync(ValgtDato);
+            //var opgaver = await _database.GetOpgaveAsync();
+            OpgaveText = "";
+
+            foreach (var opgave in opgaver)
+            {
+                OpgaveText += $"Navn: {opgave.CustomerName}\n" +
+                             $"Bil: {opgave.CarMake} {opgave.CarModel} ({opgave.CarLicense})\n" +
+                             $"Dato: {opgave.Date:yyyy-MM-dd}\n" +
+                             $"Arbejdsbeskrivelse: {opgave.Work}\n" +
+                             $"ID: {opgave.ID}\n\n\n";
             }
         }
     }

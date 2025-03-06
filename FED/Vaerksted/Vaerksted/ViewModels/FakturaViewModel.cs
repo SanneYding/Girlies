@@ -18,7 +18,7 @@ namespace Vaerksted.ViewModels
         private string _mekanikerNavn = string.Empty;
 
         [ObservableProperty]
-        private int _opgaveId;
+        private Opgave _selectedOpgave;
 
         [ObservableProperty]
         private double _timer;
@@ -26,42 +26,50 @@ namespace Vaerksted.ViewModels
         [ObservableProperty]
         private float _timepris;
 
-        //public ObservableCollection<MaterialerViewModel> Materialer { get; } = [];
+        public ObservableCollection<Materialer> Materialer { get; } = new();
 
-        //public float TotalPris => (float)(Timer * Timepris + Materialer.Sum(m => m.TotalPris));
+        public float TotalPris => (float)(Timer * Timepris + Materialer.Sum(m => m.TotalPris));
 
-        public FakturaViewModel(Database database)
+        public ObservableCollection<Opgave> OpgaveListe { get; } = new();
+
+        public FakturaViewModel()
         {
-            _database = database;
+            _database = Database.Instance;
+            LoadOpgaverAsync();
+        }
+
+        private async void LoadOpgaverAsync()
+        {
+            var opgaver = await _database.GetOpgaveAsync();
+            OpgaveListe.Clear();
+            foreach (var opgave in opgaver)
+            {
+                OpgaveListe.Add(opgave);
+            }
+        }
+
+        [RelayCommand]
+        private void AddMaterialer()
+        {
+            Materialer.Add(new Materialer { Navn = "Nyt MAteriale", Antal = 1, Pris = 100 });
+            OnPropertyChanged(nameof(TotalPris));
         }
 
         [RelayCommand]
         private async Task SaveFakturaAsync()
         {
-            /*var faktura = new Faktura
+            if (SelectedOpgave == null) return;
+            var faktura = new Faktura
             {
-                // Use _id instead of ID
-                ID = _id,
                 MekanikerNavn = MekanikerNavn,
-                OpgaveID = OpgaveId,
+                OpgaveID = SelectedOpgave.ID,
                 Timer = Timer,
                 Timepris = Timepris,
-                Materialer = Materialer.Select(m => new Materialer
-                {
-                    Navn = m.Navn,
-                    Pris = m.Pris,
-                    Antal = m.Antal
-                }).ToList()
+                Materialer = Materialer.ToList()
             };
-
-            if (_id == 0)
-            {
-                await _database.AddFakturaAsync(faktura);
-            }
-            else
-            {
-                await _database.UpdateFaktura(faktura);
-            }*/
+            
+            await _database.AddFakturaAsync(faktura);
+            
         }
     }
 }

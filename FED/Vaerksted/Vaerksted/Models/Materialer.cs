@@ -7,7 +7,6 @@ namespace Vaerksted.Models
     {
         [PrimaryKey, AutoIncrement]
         public int? ID { get; set; }
-
         public string? Navn { get; set; } = string.Empty;
         public float? Pris { get; set; }
         public int? Antal { get; set; }

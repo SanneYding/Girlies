@@ -8,10 +8,29 @@
              >
 
     <ScrollView>
-        <VerticalStackLayout Padding="20">
-            <Label Text="Kalender Oversigt" FontSize="24" HorizontalOptions="Center"/>
-
+        <VerticalStackLayout 
+            Padding="20">
+            <Label 
+                Text="Kalender Oversigt" 
+                FontSize="24" 
+                HorizontalOptions="Center"
+                />
+            <DatePicker 
+                 Date = "{Binding SelectedDate, Mode= TwoWay}"
+                 Grid.Row="2"
+                 WidthRequest="300"
+                 HorizontalOptions="Center"
+                 SemanticProperties.Hint="Dato for opgaverne"
+                 x:Name="OpgaveDatepicker" 
+                 BackgroundColor="CornflowerBlue"
+                 />
+            <Button 
+                Text="Hent Opgave" 
+                Command="{Binding LoadOpgaveCommand}" 
+                />
+            <Label 
+                Text="{Binding OpgaveText}"
+                />
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

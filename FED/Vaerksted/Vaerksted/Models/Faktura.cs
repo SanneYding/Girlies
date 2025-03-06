@@ -10,16 +10,16 @@ namespace Vaerksted.Models
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
-        public string? MekanikerNavn { get; set; } = string.Empty;
+        public string MekanikerNavn { get; set; } = string.Empty;
 
         [ForeignKey(typeof(Opgave))] // Link to Opgave
-        public int? OpgaveID { get; set; }
+        public int OpgaveID { get; set; }
 
-        public double? Timer { get; set; }
-        public float? Timepris { get; set; }
+        public double Timer { get; set; } = 0;
+        public float Timepris { get; set; } = 0;
 
         [OneToMany(CascadeOperations = CascadeOperation.All)]
-        public List<Materialer> Materialer { get; set; } = [];
+        public List<Materialer> Materialer { get; set; } = new();
 
         [Ignore] // Not stored in SQLite, calculated field
         public float? TotalPris
