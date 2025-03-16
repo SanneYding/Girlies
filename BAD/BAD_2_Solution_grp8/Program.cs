@@ -1,44 +1,30 @@
-﻿using ExperienceAPI.Data;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ExperienceAPI.Data;
+using ExperienceAPI.Models;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Tilføj services til containeren.
-builder.Services.AddDbContext<MyDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Konfigurer HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+namespace ExperienceAPI.Controllers
 {
-    app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExperienceAPI v1"));
-}
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ProviderController : ControllerBase
+    {
+        private readonly ApplicationDbContext _context;
 
-app.UseHttpsRedirection();
+        public ProviderController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
-app.UseAuthorization();
-
-app.MapControllers();
-
-SeedData(app);
-
-app.Run();
-
-void SeedData(WebApplication app)
-{
-    using var serviceScope = app.Services.CreateScope();
-    var context = serviceScope.ServiceProvider.GetRequiredService<MyDbContext>();
-
-    context.Database.EnsureDeleted();
-    context.Database.EnsureCreated();
-
-    
+        // GET: api/Provider
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Provider>>> GetProviders()
+        {
+            // Brug ToListAsync til at hente listen asynkront
+            var providers = await _context.Providers.ToListAsync();
+            return Ok(providers);
+        }
+    }
 }
