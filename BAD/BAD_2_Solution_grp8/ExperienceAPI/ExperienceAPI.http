@@ -1,6 +1,0 @@
-@ExperienceAPI_HostAddress = http://localhost:5201
-
-GET {{ExperienceAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
