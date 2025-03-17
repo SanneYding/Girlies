@@ -22,6 +22,7 @@ namespace mas1.Controllers
             return await _context.Providers.ToListAsync();
         }
 
+        // GET: api/Provider/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Provider>> GetProvider(int id)
         {
