@@ -1,23 +1,76 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using mas1.Models;
+using mas1.Data;
 
 namespace mas1.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class ExperiencesController : ControllerBase
+    [ApiController]
+    public class ExperienceController : ControllerBase
     {
-        private readonly List<Experience> _experiences = new()
+        private readonly ApplicationDbContext _context;
+
+        public ExperienceController(ApplicationDbContext context)
         {
-            new Experience { Name = "Beach Getaway", Description = "Relax on sunny beaches.", Price = 500 },
-            new Experience { Name = "Mountain Hike", Description = "Explore scenic trails.", Price = 200 },
-            new Experience { Name = "City Tour", Description = "Discover urban landmarks.", Price = 150 }
-        };
+            _context = context;
+        }
 
         [HttpGet]
-        public IActionResult GetExperience()
+        public async Task<ActionResult<IEnumerable<Experience>>> GetExperiences()
         {
-            return Ok(_experiences);
+            return await _context.Experiences.Include(e => e.Provider).ToListAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Experience>> GetExperience(int id)
+        {
+            var experience = await _context.Experiences.FindAsync(id);
+
+            if (experience == null)
+            {
+                return NotFound();
+            }
+
+            return experience;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Experience>> PostExperience(Experience experience)
+        {
+            _context.Experiences.Add(experience);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetExperience", new { id = experience.Id }, experience);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutExperience(int id, Experience experience)
+        {
+            if (id != experience.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(experience).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteExperience(int id)
+        {
+            var experience = await _context.Experiences.FindAsync(id);
+            if (experience == null)
+            {
+                return NotFound();
+            }
+
+            _context.Experiences.Remove(experience);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

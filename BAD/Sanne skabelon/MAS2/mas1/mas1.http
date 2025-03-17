@@ -1,0 +1,9 @@
+@mas1_HostAddress = http://localhost:8080
+
+GET {{mas1_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{mas1_HostAddress}}/experiences/
+Accept: application/json
