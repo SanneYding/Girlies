@@ -41,13 +41,13 @@ namespace mas1.Controllers
             _context.Discounts.Add(discount);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDiscount", new { id = discount.Id }, discount);
+            return CreatedAtAction("GetDiscount", new { id = discount.DiscountID }, discount);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDiscount(int id, Discount discount)
         {
-            if (id != discount.Id)
+            if (id != discount.DiscountID)
             {
                 return BadRequest();
             }

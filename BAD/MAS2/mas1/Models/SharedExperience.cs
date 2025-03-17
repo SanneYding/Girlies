@@ -7,7 +7,13 @@ namespace mas1.Models
     public class SharedExperience
     {
         [Key]
-        public int Id { get; set; }
+        public int SharedExperienceID { get; set; }
+
+        [Required]
+        public string ExperienceName { get; set; }
+
+        [Required]
+        public DateTime Date { get; set; }
 
         [ForeignKey("Experience")]
         public int ExperienceId { get; set; }

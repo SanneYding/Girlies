@@ -6,14 +6,16 @@ namespace mas1.Models
     public class Reservation
     {
         [Key]
-        public int Id { get; set; }
-
-        [Required]
-        public string GuestName { get; set; }
+        public int ReservationID { get; set; }
 
         [ForeignKey("SharedExperience")]
-        public int SharedExperienceId { get; set; }
+        public int SharedExperienceID { get; set; }
+
+        [ForeignKey("Guest")]
+        public int GuestID { get; set; }
 
         public SharedExperience SharedExperience { get; set; }
+
+        public Guest Guest { get; set; }
     }
 }

@@ -1,12 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using mas1.Data;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add DbContext with SQLite connection string
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddControllers();
+// Configure JSON serialization to handle circular references
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve; // Handle circular references
+        options.JsonSerializerOptions.MaxDepth = 64; // Optional: Adjust max depth if needed
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -21,8 +29,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 
-
 app.MapControllers();
-
 
 app.Run();

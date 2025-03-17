@@ -1,24 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace mas1.Models
 {
     public class Experience
     {
         [Key]
-        public int Id { get; set; }
+        public int ExperienceID { get; set; }
 
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public int Price { get; set; }
+
+        public string? Description { get; set; }
+
         [ForeignKey("Provider")]
-        public int ProviderId { get; set; }
+        public int ProviderID { get; set; }
 
-        public Provider Provider { get; set; }
-
-        public ICollection<SharedExperience> SharedExperiences { get; set; }
-
-        public ICollection<ExperienceBooking> ExperienceBookings { get; set; }
+        [JsonIgnore]
+        public virtual Provider? Provider { get; set; }
     }
 }

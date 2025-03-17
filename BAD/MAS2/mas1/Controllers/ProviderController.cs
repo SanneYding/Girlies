@@ -42,13 +42,13 @@ namespace mas1.Controllers
             _context.Providers.Add(provider);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProvider", new { id = provider.Id }, provider);
+            return CreatedAtAction("GetProvider", new { id = provider.ProviderID }, provider);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProvider(int id, Provider provider)
         {
-            if (id != provider.Id)
+            if (id != provider.ProviderID)
             {
                 return BadRequest();
             }

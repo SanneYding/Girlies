@@ -41,13 +41,13 @@ namespace mas1.Controllers
             _context.Reservations.Add(reservation);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReservation", new { id = reservation.Id }, reservation);
+            return CreatedAtAction("GetReservation", new { id = reservation.ReservationID }, reservation);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutReservation(int id, Reservation reservation)
         {
-            if (id != reservation.Id)
+            if (id != reservation.ReservationID)
             {
                 return BadRequest();
             }

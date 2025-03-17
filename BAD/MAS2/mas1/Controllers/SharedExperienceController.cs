@@ -41,13 +41,13 @@ namespace mas1.Controllers
             _context.SharedExperiences.Add(sharedExperience);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSharedExperience", new { id = sharedExperience.Id }, sharedExperience);
+            return CreatedAtAction("GetSharedExperience", new { id = sharedExperience.SharedExperienceID }, sharedExperience);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSharedExperience(int id, SharedExperience sharedExperience)
         {
-            if (id != sharedExperience.Id)
+            if (id != sharedExperience.SharedExperienceID)
             {
                 return BadRequest();
             }

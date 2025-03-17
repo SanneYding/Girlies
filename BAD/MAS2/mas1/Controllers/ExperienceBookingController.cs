@@ -31,7 +31,7 @@ namespace mas1.Controllers
             var experienceBooking = await _context.ExperienceBookings
                                                    .Include(eb => eb.Experience)
                                                    .Include(eb => eb.Reservation)
-                                                   .FirstOrDefaultAsync(eb => eb.Id == id);
+                                                   .FirstOrDefaultAsync(eb => eb.ExperienceBookingID == id);
 
             if (experienceBooking == null)
             {
@@ -47,13 +47,13 @@ namespace mas1.Controllers
             _context.ExperienceBookings.Add(experienceBooking);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetExperienceBooking", new { id = experienceBooking.Id }, experienceBooking);
+            return CreatedAtAction("GetExperienceBooking", new { id = experienceBooking.ExperienceBookingID }, experienceBooking);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExperienceBooking(int id, ExperienceBooking experienceBooking)
         {
-            if (id != experienceBooking.Id)
+            if (id != experienceBooking.ExperienceBookingID)
             {
                 return BadRequest();
             }

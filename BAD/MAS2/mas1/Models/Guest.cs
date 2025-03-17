@@ -6,9 +6,13 @@ namespace mas1.Models
     public class Guest
     {
         [Key]
-        public int Id { get; set; }
+        public int GuestID { get; set; }
 
         [Required]
         public string Name { get; set; }
+        [Required]
+        public int Age { get; set; }
+        [Required]
+        public string PhoneNumber { get; set; }
     }
 }

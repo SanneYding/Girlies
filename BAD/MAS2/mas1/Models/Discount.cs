@@ -5,12 +5,12 @@ namespace mas1.Models
     public class Discount
     {
         [Key]
-        public int Id { get; set; }
+        public int DiscountID { get; set; }
 
         [Required]
-        public string Code { get; set; }
+        public int GroupSize { get; set; }
 
         [Range(0, 100)]
-        public double Amount { get; set; }
+        public int DiscountPercentage { get; set; }
     }
 }

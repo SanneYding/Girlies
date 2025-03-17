@@ -6,11 +6,16 @@ namespace mas1.Models
     public class Provider
     {
         [Key]
-        public int Id { get; set; }
+        public int ProviderID { get; set; }
+
+        public string? BusinessAddress { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string PhoneNumber { get; set; }
 
-        public ICollection<Experience> Experiences { get; set; }
+        [Required]
+        public string CVR { get; set; }
+
+        public virtual ICollection<Experience> Experiences { get; set; }
     }
 }

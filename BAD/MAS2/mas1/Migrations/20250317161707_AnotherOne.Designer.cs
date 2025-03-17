@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using mas1.Data;
 
@@ -10,9 +11,11 @@ using mas1.Data;
 namespace mas1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250317161707_AnotherOne")]
+    partial class AnotherOne
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
@@ -328,13 +331,11 @@ namespace mas1.Migrations
 
             modelBuilder.Entity("mas1.Models.Experience", b =>
                 {
-                    b.HasOne("mas1.Models.Provider", "Provider")
+                    b.HasOne("mas1.Models.Provider", null)
                         .WithMany("Experiences")
                         .HasForeignKey("ProviderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Provider");
                 });
 
             modelBuilder.Entity("mas1.Models.ExperienceBooking", b =>
