@@ -16,14 +16,12 @@ namespace mas1.Controllers
             _context = context;
         }
 
-        // GET: api/Provider
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Provider>>> GetProviders()
         {
             return await _context.Providers.ToListAsync();
         }
 
-        // GET: api/Provider/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Provider>> GetProvider(int id)
         {
@@ -37,7 +35,6 @@ namespace mas1.Controllers
             return provider;
         }
 
-        // POST: api/Provider
         [HttpPost]
         public async Task<ActionResult<Provider>> PostProvider(Provider provider)
         {
@@ -47,7 +44,6 @@ namespace mas1.Controllers
             return CreatedAtAction("GetProvider", new { id = provider.Id }, provider);
         }
 
-        // PUT: api/Provider/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProvider(int id, Provider provider)
         {
@@ -62,7 +58,6 @@ namespace mas1.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Provider/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProvider(int id)
         {
