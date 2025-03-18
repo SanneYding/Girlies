@@ -13,8 +13,10 @@ namespace mas1.Models
         [Required]
         public string PhoneNumber { get; set; }
 
-        [Required]
-        public string CVR { get; set; }
+        /*[Required]
+        public string CVR { get; set; }*/
+
+        public byte[]? PermitPDF { get; set; }
 
         public virtual ICollection<Experience> Experiences { get; set; }
     }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace mas1.Migrations
 {
     /// <inheritdoc />
-    public partial class AnotherOne : Migration
+    public partial class ExerciseB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

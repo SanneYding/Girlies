@@ -5,7 +5,7 @@
 namespace mas1.Migrations
 {
     /// <inheritdoc />
-    public partial class AnotherOne5 : Migration
+    public partial class Migration3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

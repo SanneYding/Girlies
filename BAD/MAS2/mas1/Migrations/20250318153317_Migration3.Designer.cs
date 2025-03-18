@@ -11,8 +11,8 @@ using mas1.Data;
 namespace mas1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250317161844_AnotherOne2")]
-    partial class AnotherOne2
+    [Migration("20250318153317_Migration3")]
+    partial class Migration3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,8 +64,8 @@ namespace mas1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("Price")
+                        .HasColumnType("REAL");
 
                     b.Property<int>("ProviderID")
                         .HasColumnType("INTEGER");
@@ -82,7 +82,7 @@ namespace mas1.Migrations
                             ExperienceID = 1,
                             Description = "Jumping out of a plane",
                             Name = "Skydiving",
-                            Price = 250,
+                            Price = 250.0,
                             ProviderID = 1
                         },
                         new
@@ -90,7 +90,7 @@ namespace mas1.Migrations
                             ExperienceID = 2,
                             Description = "Swimming with sharks",
                             Name = "Scuba Diving",
-                            Price = 200,
+                            Price = 200.0,
                             ProviderID = 2
                         },
                         new
@@ -98,7 +98,7 @@ namespace mas1.Migrations
                             ExperienceID = 3,
                             Description = "Hiking above the clouds",
                             Name = "Mountain Hiking",
-                            Price = 100,
+                            Price = 100.0,
                             ProviderID = 3
                         });
                 });
@@ -206,9 +206,8 @@ namespace mas1.Migrations
                     b.Property<string>("BusinessAddress")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CVR")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<byte[]>("PermitPDF")
+                        .HasColumnType("BLOB");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -223,21 +222,18 @@ namespace mas1.Migrations
                         {
                             ProviderID = 1,
                             BusinessAddress = "Finlands Gade 27",
-                            CVR = "98765432",
                             PhoneNumber = "98765432"
                         },
                         new
                         {
                             ProviderID = 2,
                             BusinessAddress = "Finlands Gade 25",
-                            CVR = "564323567",
                             PhoneNumber = "35246543"
                         },
                         new
                         {
                             ProviderID = 3,
                             BusinessAddress = "Finlands Gade 22",
-                            CVR = "42356754",
                             PhoneNumber = "5465436"
                         });
                 });

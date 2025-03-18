@@ -11,8 +11,8 @@ using mas1.Data;
 namespace mas1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250317162422_AnotherOne3")]
-    partial class AnotherOne3
+    [Migration("20250318152745_Migration1")]
+    partial class Migration1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,8 +64,8 @@ namespace mas1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("Price")
+                        .HasColumnType("REAL");
 
                     b.Property<int>("ProviderID")
                         .HasColumnType("INTEGER");
@@ -82,7 +82,7 @@ namespace mas1.Migrations
                             ExperienceID = 1,
                             Description = "Jumping out of a plane",
                             Name = "Skydiving",
-                            Price = 250,
+                            Price = 250.0,
                             ProviderID = 1
                         },
                         new
@@ -90,7 +90,7 @@ namespace mas1.Migrations
                             ExperienceID = 2,
                             Description = "Swimming with sharks",
                             Name = "Scuba Diving",
-                            Price = 200,
+                            Price = 200.0,
                             ProviderID = 2
                         },
                         new
@@ -98,7 +98,7 @@ namespace mas1.Migrations
                             ExperienceID = 3,
                             Description = "Hiking above the clouds",
                             Name = "Mountain Hiking",
-                            Price = 100,
+                            Price = 100.0,
                             ProviderID = 3
                         });
                 });
@@ -209,6 +209,9 @@ namespace mas1.Migrations
                     b.Property<string>("CVR")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("PermitPDF")
+                        .HasColumnType("BLOB");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()

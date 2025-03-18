@@ -27,9 +27,9 @@ namespace mas1.Data
             {
                 // Seed Providers first, since Experiences will reference them.
                 modelBuilder.Entity<Provider>().HasData(
-                    new Provider { ProviderID = 1, BusinessAddress = "Finlands Gade 27", CVR = "98765432", PhoneNumber = "98765432" },
-                    new Provider { ProviderID = 2, BusinessAddress = "Finlands Gade 25", CVR = "564323567", PhoneNumber = "35246543" },
-                    new Provider { ProviderID = 3, BusinessAddress = "Finlands Gade 22", CVR = "42356754", PhoneNumber = "5465436" }
+                    new Provider { ProviderID = 1, BusinessAddress = "Finlands Gade 27", PhoneNumber = "98765432", PermitPDF = null },
+                    new Provider { ProviderID = 2, BusinessAddress = "Finlands Gade 25", PhoneNumber = "35246543", PermitPDF = null },
+                    new Provider { ProviderID = 3, BusinessAddress = "Finlands Gade 22", PhoneNumber = "5465436", PermitPDF = null }
                 );
 
                 // Seed Experiences after Providers

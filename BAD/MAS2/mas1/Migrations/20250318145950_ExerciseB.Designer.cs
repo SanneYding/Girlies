@@ -11,8 +11,8 @@ using mas1.Data;
 namespace mas1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250317163448_AnotherOne5")]
-    partial class AnotherOne5
+    [Migration("20250318145950_ExerciseB")]
+    partial class ExerciseB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

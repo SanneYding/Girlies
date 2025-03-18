@@ -45,6 +45,22 @@ namespace mas1.Controllers
             return CreatedAtAction("GetProvider", new { id = provider.ProviderID }, provider);
         }
 
+        [HttpPost("upload-permit/{providerId}")]
+        public async Task<IActionResult> UploadTouristicPermit(int providerId, IFormFile file)
+        {
+            var provider = await _context.Providers.FindAsync(providerId);
+            if (provider == null) return NotFound();
+
+            using (var memoryStream = new MemoryStream())
+            {
+                await file.CopyToAsync(memoryStream);
+                provider.PermitPDF = memoryStream.ToArray();
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProvider(int id, Provider provider)
         {
