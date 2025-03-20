@@ -14,6 +14,7 @@ namespace mas1.Models
         public string Name { get; set; }
 
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Prisen skal være positiv (Vi betaler ikke folk for at deltage;)")]
         public int Price { get; set; }
 
         public string? Description { get; set; }
