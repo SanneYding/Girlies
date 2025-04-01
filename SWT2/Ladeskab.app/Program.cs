@@ -30,6 +30,7 @@ class Program
         while (!finish)
         {
             string input = GetUserInput();
+            input = input.ToUpper();
             if (string.IsNullOrEmpty(input)) continue;
 
             // Check if the action exists in the dictionary
