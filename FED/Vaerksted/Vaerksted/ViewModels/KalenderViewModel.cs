@@ -1,22 +1,31 @@
-﻿//using CloudKit;
+﻿using System;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Controls;
 using Vaerksted.Services;
 
 namespace Vaerksted.ViewModels
 {
     public partial class KalenderViewModel : ObservableObject
     {
-        private readonly Database _database;
+        private readonly INavigation _navigation;
+        private readonly Database _database = new();
+
+        public KalenderViewModel(INavigation navigation)
+        {
+            _navigation = navigation;
+            SelectedDate = DateTime.Today;
+        }
 
         [ObservableProperty]
-        private DateTime _selectedDate = DateTime.Now;
+        private DateTime selectedDate;
+
+        [ObservableProperty]
+        private string opgaveText = string.Empty;
 
         [ObservableProperty]
         private int id;
-
-        /*[ObservableProperty]
-        private string navn = string.Empty;*/
 
         [ObservableProperty]
         private float pris;
@@ -27,43 +36,48 @@ namespace Vaerksted.ViewModels
         [ObservableProperty]
         private int fakturaId;
 
+        [ObservableProperty]
+        private string navn = string.Empty;
+
         public float TotalPris => Pris * Antal;
-
-        public string Navn { get; set; }
-
 
         partial void OnSelectedDateChanged(DateTime value)
         {
-            
-            
+            LoadOpgaverForDatoCommand.Execute(null);
         }
 
-        private async Task UpdateOpgaveView(DateTime value)
+        [RelayCommand]
+        private async Task LoadOpgaverForDato()
         {
-            var Kalender = _database.GetOpgaveByDateAsync(value);
-        }
+            var opgaver = await _database.GetOpgaveByDateAsync(SelectedDate);
+            OpgaveText = string.Empty;
 
-        public KalenderViewModel(Database database)
-        {
-            _database = database;
-            InitializeKalender();
-        }
-
-
-        public async Task GetOpgaveByDate()
-        {
-
-        } 
-
-
-        private async Task InitializeKalender()
-        {
-            var Kalender = await _database.GetOpgaveAsync();
-            foreach (var opgave in Kalender)
+            foreach (var opgave in opgaver)
             {
-                Kalender.Add(opgave);
+                OpgaveText += $"Navn: {opgave.CustomerName}\n" +
+                              $"Bil: {opgave.CarMake} {opgave.CarModel} ({opgave.CarLicense})\n" +
+                              $"Dato: {opgave.Date:yyyy-MM-dd}\n" +
+                              $"Arbejdsbeskrivelse: {opgave.Work}\n" +
+                              $"ID: {opgave.ID}\n\n";
+            }
+
+            if (string.IsNullOrWhiteSpace(OpgaveText))
+            {
+                OpgaveText = "Ingen opgaver fundet for denne dato.";
             }
         }
 
+        [RelayCommand]
+        public async Task Cancel()
+        {
+            await _navigation.PopToRootAsync();
+        }
+
+        [RelayCommand]
+        public async Task Save()
+        {
+            // Her kunne man tilføje logik til at gemme en opgave eller faktura
+            await _navigation.PopAsync();
+        }
     }
 }

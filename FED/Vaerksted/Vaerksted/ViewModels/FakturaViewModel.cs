@@ -1,40 +1,42 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Vaerksted.Models;
 using Vaerksted.Services;
+using Microsoft.Maui.Controls; // For INavigation
 
 namespace Vaerksted.ViewModels
 {
     public partial class FakturaViewModel : ObservableObject
     {
-        private readonly Database _database;
+        private readonly INavigation _navigation;
+        private readonly Database _database = new Database(); // Direkte instans ligesom i dit eksempel
 
         [ObservableProperty]
-        private int _id;
+        private int id;
 
         [ObservableProperty]
-        private string _mekanikerNavn = string.Empty;
+        private string mekanikerNavn = string.Empty;
 
         [ObservableProperty]
-        private Opgave _selectedOpgave;
+        private Opgave selectedOpgave;
 
         [ObservableProperty]
-        private double _timer;
+        private double timer;
 
         [ObservableProperty]
-        private float _timepris;
+        private float timepris;
 
         public ObservableCollection<Materialer> Materialer { get; } = new();
+        public ObservableCollection<Opgave> OpgaveListe { get; } = new();
 
         public float TotalPris => (float)(Timer * Timepris + Materialer.Sum(m => m.TotalPris));
 
-        public ObservableCollection<Opgave> OpgaveListe { get; } = new();
-
-        public FakturaViewModel()
+        public FakturaViewModel(INavigation navigation)
         {
-            _database = Database.Instance;
+            _navigation = navigation;
             LoadOpgaverAsync();
         }
 
@@ -51,14 +53,15 @@ namespace Vaerksted.ViewModels
         [RelayCommand]
         private void AddMaterialer()
         {
-            Materialer.Add(new Materialer { Navn = "Nyt MAteriale", Antal = 1, Pris = 100 });
+            Materialer.Add(new Materialer { Navn = "Nyt Materiale", Antal = 1, Pris = 100 });
             OnPropertyChanged(nameof(TotalPris));
         }
 
         [RelayCommand]
-        private async Task SaveFakturaAsync()
+        public async void Save()
         {
             if (SelectedOpgave == null) return;
+
             var faktura = new Faktura
             {
                 MekanikerNavn = MekanikerNavn,
@@ -67,9 +70,15 @@ namespace Vaerksted.ViewModels
                 Timepris = Timepris,
                 Materialer = Materialer.ToList()
             };
-            
+
             await _database.AddFakturaAsync(faktura);
-            
+            await _navigation.PopAsync();
+        }
+
+        [RelayCommand]
+        public async void Cancel()
+        {
+            await _navigation.PopToRootAsync();
         }
     }
 }

@@ -3,24 +3,33 @@
     x:Class="Vaerksted.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:tk="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:local="clr-namespace:Vaerksted"
+    xmlns:pages="clr-namespace:Vaerksted.Pages"
     Shell.FlyoutBehavior="Flyout"
-    Title="Vaerksted">
+    Title="Værksted">
 
-    <ShellContent
-        Title="Book Ny Opgave"
-        ContentTemplate="{DataTemplate local:OpgaveView}"
-        Route="OpgaveView" />
+    <!-- Booking -->
+    <FlyoutItem Title="Book Ny Opgave" Icon="calendar_add.png">
+        <ShellContent
+            Title="Book Ny Opgave"
+            ContentTemplate="{DataTemplate pages:Opgaver}"
+            Route="OpgaveView" />
+    </FlyoutItem>
 
-    <ShellContent
-        Title="Oversigt over opgaver"
-        ContentTemplate="{DataTemplate local:KalenderView}"
-        Route="KalenderView" />
+    <!-- Kalender -->
+    <FlyoutItem Title="Oversigt over Opgaver" Icon="calendar.png">
+        <ShellContent
+            Title="Kalender"
+            ContentTemplate="{DataTemplate pages:KalenderView}"
+            Route="KalenderView" />
+    </FlyoutItem>
 
-    <ShellContent
-        Title="Specifikation af udført arbejde"
-        ContentTemplate="{DataTemplate local:FakturaView}"
-        Route="FakturaView" />
+    <!-- Faktura -->
+    <FlyoutItem Title="Faktura" Icon="invoice.png">
+        <ShellContent
+            Title="Specifikation af Arbejde"
+            ContentTemplate="{DataTemplate pages:FakturaPage}"
+            Route="FakturaView" />
+    </FlyoutItem>
 
 </Shell>

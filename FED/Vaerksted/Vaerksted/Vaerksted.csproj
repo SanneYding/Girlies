@@ -60,6 +60,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="FakturaView.xaml.cs" />
+	  <Compile Remove="OpgaveView.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="FakturaView.xaml" />
+	  <MauiXaml Remove="OpgaveView.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
@@ -69,25 +79,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="KalenderView.xaml.cs">
+	  <Compile Update="Pages\KalenderView.xaml.cs">
 	    <DependentUpon>KalenderView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="FakturaView.xaml.cs">
-	    <DependentUpon>FakturaView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="OpgaveView.xaml.cs">
-	    <DependentUpon>OpgaveView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="KalenderView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="FakturaView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="OpgaveView.xaml">
+	  <MauiXaml Update="Pages\KalenderView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\FakturaPage.xaml">

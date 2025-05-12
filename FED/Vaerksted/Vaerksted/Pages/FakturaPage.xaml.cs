@@ -1,5 +1,4 @@
 using Vaerksted.ViewModels;
-
 namespace Vaerksted.Pages;
 
 public partial class FakturaPage : ContentPage

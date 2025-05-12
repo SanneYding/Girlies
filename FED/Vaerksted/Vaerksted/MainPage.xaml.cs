@@ -5,11 +5,13 @@ namespace Vaerksted
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage()
+        public MainPage(OpgaveViewModel opgaveViewModel)
         {
-            var db = Database.Instance;
             InitializeComponent();
-            BindingContext = new OpgaveViewModel(db);
+
+            // Bind the ViewModel to the page
+            BindingContext = opgaveViewModel;
         }
     }
+
 }

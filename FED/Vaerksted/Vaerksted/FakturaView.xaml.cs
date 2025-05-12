@@ -5,11 +5,12 @@ namespace Vaerksted
 {
     public partial class FakturaView : ContentPage
     {
-        public FakturaView()
+        // Bruger Dependency Injection til at få adgang til FakturaViewModel
+        public FakturaView(FakturaViewModel fakturaViewModel)
         {
-            var db = Database.Instance;
             InitializeComponent();
-            BindingContext = new FakturaViewModel();
+            // Binde FakturaViewModel til denne side
+            BindingContext = fakturaViewModel;
         }
     }
 }

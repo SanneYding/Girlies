@@ -6,64 +6,83 @@
              x:Class="Vaerksted.Pages.FakturaPage"
              Title="Faktura">
 
-    <VerticalStackLayout Padding="20">
+    <VerticalStackLayout Padding="20" Spacing="15">
+
         <Label 
             Text="Faktura"
-            FontSize="24"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            FontSize="28"
+            HorizontalOptions="Center"/>
 
         <Entry 
-            Placeholder="Mekaniker's Navn" 
-            Text="{Binding MekanikerNavn}"/>
+            Placeholder="Mekanikerens navn" 
+            Text="{Binding MekanikerNavn}" />
+
+        <Picker 
+            Title="Vælg opgave"
+            ItemsSource="{Binding OpgaveListe}"
+            ItemDisplayBinding="{Binding CustomerName}"
+            SelectedItem="{Binding SelectedOpgave}" />
 
         <Entry 
             Placeholder="Timer brugt" 
             Keyboard="Numeric"
-            Text="{Binding Timer, StringFormat='{0:N2}'}"/>
+            Text="{Binding Timer}" />
 
         <Entry 
             Placeholder="Timepris" 
             Keyboard="Numeric"
-            Text="{Binding Timepris, StringFormat='{0:N2}'}"/>
+            Text="{Binding Timepris}" />
 
-        <Label Text="Materialer" FontSize="18" FontAttributes="Bold"/>
+        <Label Text="Materialer" FontSize="20" FontAttributes="Bold"/>
 
         <CollectionView ItemsSource="{Binding Materialer}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10">
+                    <Grid Padding="5">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Label 
                             Grid.Column="0"
-                            Text="{Binding Navn}" 
-                            FontSize="14"/>
+                            Text="{Binding Navn}" />
                         <Label 
                             Grid.Column="1"
-                            Text="{Binding TotalPris, StringFormat='Total: {0:C}'}"
+                            Text="{Binding Antal}" 
+                            HorizontalOptions="End"/>
+                        <Label 
+                            Grid.Column="2"
+                            Text="{Binding TotalPris, StringFormat='Kr. {0:N2}'}"
                             HorizontalOptions="End"/>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
+        <Button 
+            Text="Tilføj materiale" 
+            Command="{Binding AddMaterialerCommand}" />
+
         <Label 
-            Text="{Binding TotalPris, StringFormat='Total Faktura: {0:C}'}" 
-            FontSize="18" 
+            Text="{Binding TotalPris, StringFormat='Total faktura: {0:C}'}"
+            FontSize="18"
             FontAttributes="Bold"
-            HorizontalOptions="Center"/>
+            HorizontalOptions="Center" />
 
         <Button 
-            Text="Gem Faktura" 
+            Text="Gem Faktura"
             Command="{Binding SaveFakturaCommand}"
-            Margin="0,10"/>
+            BackgroundColor="Green"
+            TextColor="White"
+            CornerRadius="8" />
 
         <Button 
-            Text="Tilbage" 
-            Clicked="GoBack"
-            Style="{StaticResource OutlineButton}"/>
+            Text="Tilbage"
+            Command="{Binding CancelCommand}" 
+            BackgroundColor="Transparent"
+            BorderColor="Gray"
+            TextColor="Black"
+            CornerRadius="8"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Vaerksted.ViewModels"
+             x:Class="Vaerksted.Pages.KalenderView"
+             x:DataType="vm:KalenderViewModel"
+             Title="Kalender">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Label 
+                Text="Kalender Oversigt" 
+                FontSize="28" 
+                HorizontalOptions="Center" />
+
+            <DatePicker 
+                Date="{Binding SelectedDate, Mode=TwoWay}" 
+                WidthRequest="300"
+                HorizontalOptions="Center"
+                SemanticProperties.Hint="Vælg dato" 
+                BackgroundColor="CornflowerBlue"
+                TextColor="White"
+                />
+
+            <Button 
+                Text="Hent opgave" 
+                Command="{Binding LoadOpgaveCommand}" 
+                BackgroundColor="SteelBlue" 
+                TextColor="White"
+                CornerRadius="8" />
+
+            <Label 
+                Text="{Binding OpgaveText}" 
+                FontSize="16"
+                TextColor="Black"
+                LineBreakMode="WordWrap" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

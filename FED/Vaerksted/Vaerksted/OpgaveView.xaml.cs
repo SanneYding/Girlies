@@ -1,15 +1,16 @@
-﻿using Vaerksted.Services;
-using Vaerksted.ViewModels;
+﻿using Vaerksted.ViewModels;
+using Vaerksted.Services;
 
 namespace Vaerksted
 {
     public partial class OpgaveView : ContentPage
     {
-        public OpgaveView()
+        // Bruger Dependency Injection til at få adgang til OpgaveViewModel
+        public OpgaveView(OpgaveViewModel opgaveViewModel)
         {
-            var db = Database.Instance;
             InitializeComponent();
-            BindingContext = new OpgaveViewModel(db);
+            // Binde ViewModel til denne side
+            BindingContext = opgaveViewModel;
         }
     }
 }
