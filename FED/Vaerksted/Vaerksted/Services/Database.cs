@@ -16,12 +16,11 @@ namespace Vaerksted.Services
         {
             var dataDir = FileSystem.AppDataDirectory;
             var databasePath = Path.Combine(dataDir, "Vaerksted_3.db");
+            var dbOptions = new SQLiteConnectionString(databasePath, storeDateTimeAsTicks: false);
 
-            // ⚠️ Debug: Slet eksisterende database (brug kun midlertidigt!)
-            // if (File.Exists(databasePath))
-            //     File.Delete(databasePath);
+            _connection = new SQLiteAsyncConnection(dbOptions);
 
-            _connection = new SQLiteAsyncConnection(databasePath);
+            _ = InitializeAsync();
         }
 
         public async Task InitializeAsync()
@@ -41,10 +40,10 @@ namespace Vaerksted.Services
 
         // -------------------- OPGAVE --------------------
 
-        public async Task<List<Opgave>> GetOpgaveAsync() =>
+        public async Task<List<Opgave>> GetOpgaveListAsync() =>
             await _connection.Table<Opgave>().ToListAsync();
 
-        public async Task<Opgave> GetOpgaveAsync(int id) =>
+        public async Task<Opgave> GetOpgaveAsyncByID(int id) =>
             await _connection.Table<Opgave>().Where(t => t.ID == id).FirstOrDefaultAsync();
 
         public async Task<List<Opgave>> GetOpgaveByDateAsync(DateTime date)

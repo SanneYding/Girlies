@@ -42,7 +42,7 @@ namespace Vaerksted.ViewModels
 
         private async void LoadOpgaverAsync()
         {
-            var opgaver = await _database.GetOpgaveAsync();
+            var opgaver = await _database.GetOpgaveListAsync();
             OpgaveListe.Clear();
             foreach (var opgave in opgaver)
             {

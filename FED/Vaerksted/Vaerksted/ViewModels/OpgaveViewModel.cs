@@ -19,8 +19,8 @@ namespace Vaerksted.ViewModels
             CancelAsyncCommand = new Command(Cancel);
         }
 
-        public ICommand SaveAsyncCommand { get; }
-        public ICommand CancelAsyncCommand { get; }
+        public ICommand SaveAsyncCommand { get; set; }
+        public ICommand CancelAsyncCommand { get; set; }
 
         // Opgave properties (bind to XAML fields)
         public string CustomerName { get; set; }  // Changed from Name to CustomerName

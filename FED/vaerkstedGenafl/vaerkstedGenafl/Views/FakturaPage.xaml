@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:vaerkstedGenafl.ViewModels"
+             x:Class="vaerkstedGenafl.Views.FakturaPage">
+
+    <ContentPage.BindingContext>
+        <viewModels:FakturaViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Tilføj faktura" FontSize="20" FontAttributes="Bold" />
+
+            <Entry Placeholder="Mekaniker" Text="{Binding Mekaniker}" />
+            <Entry Placeholder="Timer" Keyboard="Numeric" Text="{Binding Timer}" />
+            <Entry Placeholder="Timepris" Keyboard="Numeric" Text="{Binding TimePris}" />
+            <Button Text="Tilføj faktura" Command="{Binding TilføjFakturaCommand}" />
+
+            <Label Text="Materialer" FontSize="20" FontAttributes="Bold" />
+
+            <Entry Placeholder="Materiale navn" Text="{Binding MaterialerNavn}" />
+            <Entry Placeholder="Pris" Keyboard="Numeric" Text="{Binding MaterialePris}" />
+            <Button Text="Tilføj materiale"
+                    Command="{Binding TilføjMaterialeCommand}"
+                    CommandParameter="{Binding Fakturaer[0]}" />
+
+            <CollectionView ItemsSource="{Binding MaterialeListe}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout Spacing="10">
+                            <Label Text="{Binding Navn}" />
+                            <Label Text="{Binding Pris}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Tilbage" Command="{Binding LukCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
