@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:vaerkstedGenafl.ViewModels"
+             x:Class="vaerkstedGenafl.Views.NyOpgavePage">
+
+    <ContentPage.BindingContext>
+        <viewModels:NyOpgaveViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Ny Opgave" FontSize="24" FontAttributes="Bold" />
+
+            <Entry Placeholder="Kunde Navn" Text="{Binding Kundenavn}" />
+            <Entry Placeholder="Adresse" Text="{Binding Adresse}" />
+            <Entry Placeholder="Bil Mærke" Text="{Binding Bilmærke}" />
+            <Entry Placeholder="Bil Model" Text="{Binding Bilmodel}" />
+            <Entry Placeholder="Registreringsnummer" Text="{Binding Registreringsnummer}" />
+
+            <DatePicker Date="{Binding IndleveringDato}" />
+            <TimePicker Time="{Binding IndleveringTid}" />
+
+            <Editor Placeholder="Beskrivelse" AutoSize="TextChanges" Text="{Binding Beskrivelse}" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+                <Button Text="Gem" Command="{Binding TilføjOpgaveCommand}" Grid.Column="0" />
+                <Button Text="Annuller" Command="{Binding AnnullerCommand}" Grid.Column="1" />
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

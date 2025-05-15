@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:vaerkstedGenafl.ViewModels"
+             x:Class="vaerkstedGenafl.Views.OpgavePage">
+
+    <ContentPage.BindingContext>
+        <viewModels:OpgaveViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Padding="10">
+        <Label Text="Opgaver" FontSize="24" FontAttributes="Bold" />
+
+        <CollectionView ItemsSource="{Binding Opgaver}" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="LightGray" Margin="5">
+                        <HorizontalStackLayout Spacing="10">
+                            <Label Text="{Binding KundeNavn}" FontAttributes="Bold" />
+                            <Label Text="{Binding Registreringsnummer}" />
+                            <Label Text="{Binding Indlevering, StringFormat='{}{0:dd-MM-yyyy HH:mm}'}" />
+
+                            <!-- Add TapGestureRecognizer directly to Frame or Label -->
+                            <Label Text="Tap me"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="StartAndExpand">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:OpgaveViewModel}}, Path=GoToFakturaCommand}"
+                                        CommandParameter="{Binding ID}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </HorizontalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Ny Opgave"
+                Command="{Binding GoToAddOpgaveCommand}"
+                Margin="10" />
+    </VerticalStackLayout>
+</ContentPage>
